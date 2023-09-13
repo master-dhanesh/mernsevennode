@@ -2,8 +2,21 @@
 
     <h3>User Registration</h3>
     <form class="w-50" action="/register" method="POST">
-        <input class="form-control mb-3" name="username" type="text" placeholder="Username" />
-        <input class="form-control mb-3" name="password" type="password" placeholder="********" />
+
+        <input type="radio" name="gender" value="male"> Male <br>
+        <input type="radio" name="gender" value="female"> Female
+        <br>
+        <input type="checkbox" name="valid" value="yes"> Accept
+        <br>
+        <select name="city">
+            <option value="bhopal">Bhopal</option>
+            <option value="indore">Indore</option>
+            <option value="gwalior">Gwalior</option>
+            <option value="sagar">Sagar</option>
+        </select>
+
+
+        <br><br>
         <button class="btn btn-dark">Register</button>
     </form>
 

@@ -1,23 +1,28 @@
 var express = require("express");
 var router = express.Router();
+const fs = require("fs");
 
 router.get("/", function (req, res, next) {
-    res.render("index");
+    const files = fs.readdirSync("public/database");
+    res.render("index", { files: files });
 });
 
-router.get("/user/:id", function (req, res, next) {
-    res.render("users", { id: req.params.id });
+router.post("/create", function (req, res, next) {
+    fs.writeFileSync(`public/database/${req.body.filename}`, "");
+    res.redirect("/");
+    // res.render("index");
+    // res.json(req.body);
+    // res.redirect(`/file/${req.body.filename}`);
 });
 
-// router.get("/register", function (req, res, next) {
-//     // res.send("text")
-//     // res.json(req.query);
-//     res.render("Profile", { user: req.query });
+// router.get("/file/:filename", function (req, res, next) {
+//     const filedata = fs.readFileSync(
+//         `public/database/${req.params.filename}`,
+//         "utf-8"
+//     );
+//     const files = fs.readdirSync("public/database");
+
+//     res.render("index", { filedata: filedata, files: files });
 // });
-
-router.post("/register", function (req, res, next) {
-    const data = req.body;
-    res.render("Profile", { user: data });
-});
 
 module.exports = router;

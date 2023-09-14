@@ -1,23 +1,49 @@
-<%- include("partials/header")%>
+<!DOCTYPE html>
+<html lang="en">
 
-    <h3>User Registration</h3>
-    <form class="w-50" action="/register" method="POST">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Node Web App</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+</head>
 
-        <input type="radio" name="gender" value="male"> Male <br>
-        <input type="radio" name="gender" value="female"> Female
-        <br>
-        <input type="checkbox" name="valid" value="yes"> Accept
-        <br>
-        <select name="city">
-            <option value="bhopal">Bhopal</option>
-            <option value="indore">Indore</option>
-            <option value="gwalior">Gwalior</option>
-            <option value="sagar">Sagar</option>
-        </select>
+<body>
+
+    <div style="height: 100vh;" class="p-5 w-100 d-flex justify-content-between">
+        <div class="left w-25 pe-2">
+            <form action="/create" method="POST">
+                <input class="form-control" type="text" placeholder="example.extension" name="filename">
+            </form>
+            <hr>
+            <ul class="list-group">
+
+                <% files.forEach(function(file){ %>
+                    <li class="list-group-item border-0 d-flex justify-content-between">
+                        <a class="text-decoration-none" href="/">
+                            <%= file%>
+                        </a>
+                        <span>❌</span>
+                    </li>
 
 
-        <br><br>
-        <button class="btn btn-dark">Register</button>
-    </form>
+                    <% })%>
 
-    <%- include("partials/footer")%>
+
+            </ul>
+        </div>
+
+
+        <!-- <div class="right w-75">
+            <p>file.txt <a class="text-decoration-none fw-bold" href="/">x</a></p>
+            <form action="">
+                <textarea rows="25" class="form-control" name="filedata" placeholder="enter text here"></textarea>
+            </form>
+            <button class="mt-2 px-5 btn btn-success">Save</button>
+        </div> -->
+    </div>
+
+</body>
+
+</html>

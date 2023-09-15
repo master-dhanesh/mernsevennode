@@ -18,17 +18,16 @@
             </form>
             <hr>
             <ul class="list-group">
-
-                <% files.forEach(function(file){ %>
+                <% files.forEach(function(file) {%>
                     <li class="list-group-item border-0 d-flex justify-content-between">
                         <a class="text-decoration-none" href="/">
                             <%= file%>
                         </a>
-                        <span>❌</span>
+                        <a href="/delete/<%= file%>">❌</a>
                     </li>
-
-
                     <% })%>
+
+
 
 
             </ul>

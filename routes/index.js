@@ -10,19 +10,11 @@ router.get("/", function (req, res, next) {
 router.post("/create", function (req, res, next) {
     fs.writeFileSync(`public/database/${req.body.filename}`, "");
     res.redirect("/");
-    // res.render("index");
-    // res.json(req.body);
-    // res.redirect(`/file/${req.body.filename}`);
 });
 
-// router.get("/file/:filename", function (req, res, next) {
-//     const filedata = fs.readFileSync(
-//         `public/database/${req.params.filename}`,
-//         "utf-8"
-//     );
-//     const files = fs.readdirSync("public/database");
-
-//     res.render("index", { filedata: filedata, files: files });
-// });
+router.get("/delete/:filename", function (req, res, next) {
+    fs.unlinkSync(`public/database/${req.params.filename}`);
+    res.redirect("/");
+});
 
 module.exports = router;

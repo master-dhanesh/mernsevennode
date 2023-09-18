@@ -4,12 +4,33 @@ const fs = require("fs");
 
 router.get("/", function (req, res, next) {
     const files = fs.readdirSync("public/database");
-    res.render("index", { files: files });
+    res.render("index", { files: files, filename: null, filedata: null });
 });
 
 router.post("/create", function (req, res, next) {
     fs.writeFileSync(`public/database/${req.body.filename}`, "");
-    res.redirect("/");
+    res.redirect(`/edit/${req.body.filename}`);
+});
+
+router.get("/edit/:filename", function (req, res, next) {
+    const files = fs.readdirSync("public/database");
+    const filedata = fs.readFileSync(
+        `public/database/${req.params.filename}`,
+        "utf-8"
+    );
+    res.render("index", {
+        files: files,
+        filedata: filedata,
+        filename: req.params.filename,
+    });
+});
+
+router.post("/save/:filename", function (req, res, next) {
+    fs.writeFileSync(
+        `public/database/${req.params.filename}`,
+        req.body.filedata
+    );
+    res.redirect(`/edit/${req.params.filename}`);
 });
 
 router.get("/delete/:filename", function (req, res, next) {

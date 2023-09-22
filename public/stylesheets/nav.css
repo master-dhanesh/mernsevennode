@@ -1,0 +1,27 @@
+nav {
+    height: 10vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2vmax;
+    box-shadow: 0 0 10px rgb(223, 222, 222);
+}
+
+nav img {
+    height: 8vh;
+}
+nav ul {
+    display: flex;
+    list-style-type: none;
+}
+
+nav ul {
+    gap: 2vmax;
+}
+
+nav a {
+    text-decoration: none;
+    font-weight: 400;
+    font-size: 1.5vmax;
+}

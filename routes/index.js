@@ -157,6 +157,10 @@ function Books() {
     return JSON.parse(fs.readFileSync("public/book.json", "utf-8"));
 }
 
+function WriteBooks(book) {
+    fs.writeFileSync("public/book.json", JSON.stringify(book));
+}
+
 router.get("/", function (req, res, next) {
     res.render("index");
 });
@@ -172,11 +176,20 @@ router.get("/register", function (req, res, next) {
 router.post("/register", function (req, res, next) {
     const x = Books();
     x.push(req.body);
-    fs.writeFileSync("public/book.json", JSON.stringify(x));
+    WriteBooks(x);
     res.redirect("/show");
 });
 
 router.get("/show", function (req, res, next) {
     res.render("show", { books: Books() });
 });
+
+router.get("/delete/:title", function (req, res, next) {
+    let x = Books();
+    const titleIndex = x.findIndex((b) => b.title === req.params.title);
+    x.splice(titleIndex, 1);
+    WriteBooks(x);
+    res.redirect("/show");
+});
+
 module.exports = router;

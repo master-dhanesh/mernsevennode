@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 const fs = require("fs");
 const countrylist = require("country-list");
+const countryNames = countrylist.getNames();
 const languages_list = [
     { name: "Afrikaans", code: "af" },
     { name: "Albanian - shqip", code: "sq" },
@@ -166,7 +167,6 @@ router.get("/", function (req, res, next) {
 });
 
 router.get("/register", function (req, res, next) {
-    const countryNames = countrylist.getNames();
     res.render("register", {
         countryNames: countryNames,
         languageNames: languages_list,
@@ -184,10 +184,26 @@ router.get("/show", function (req, res, next) {
     res.render("show", { books: Books() });
 });
 
-router.get("/delete/:title", function (req, res, next) {
+router.get("/delete/:index", function (req, res, next) {
     let x = Books();
-    const titleIndex = x.findIndex((b) => b.title === req.params.title);
-    x.splice(titleIndex, 1);
+    x.splice(req.params.index, 1);
+    WriteBooks(x);
+    res.redirect("/show");
+});
+router.get("/update/:index", function (req, res, next) {
+    const books = Books();
+    const book = books[req.params.index];
+    res.render("update", {
+        index: req.params.index,
+        countryNames: countryNames,
+        languageNames: languages_list,
+        book,
+    });
+});
+
+router.post("/update/:index", function (req, res, next) {
+    let x = Books();
+    x[req.params.index] = req.body;
     WriteBooks(x);
     res.redirect("/show");
 });

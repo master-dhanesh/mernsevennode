@@ -1,34 +1,25 @@
 <%- include('partials/header.ejs')%>
-    <link rel="stylesheet" href="/stylesheets/show.css">
-    <%- include('partials/nav.ejs')%>
+<link rel="stylesheet" href="/stylesheets/show.css" />
+<%- include('partials/nav.ejs')%>
 
-        <div class="show-container">
-            <% if (books.length===0) { %>
+<div class="show-container">
+    <% if (books.length===0) { %>
 
-                <h2 style="color: tomato; text-align: center;">No Books Registered</h2>
+    <h2 style="color: tomato; text-align: center">No Books Registered</h2>
 
-                <% } %>
+    <% } %> <% books.forEach(function(book,idx){ %>
+    <div class="book-card">
+        <img src="<%= book.imagelink %>" alt="" />
+        <h3><%= book.title%></h3>
+        <p><%= book.author%></p>
+        <a target="_blank" href="<%= book.link%>">Explore</a>
 
-                    <% books.forEach(function(book){ %>
-                        <div class="book-card">
-                            <img src="<%= book.imagelink %>" alt="">
-                            <h3>
-                                <%= book.title%>
-                            </h3>
-                            <p>
-                                <%= book.author%>
-                            </p>
-                            <a target="_blank" href="<%= book.link%>">Explore</a>
+        <p>
+            <a href="/delete/<%= idx%>">Delete</a>
+            <a href="/update/<%= idx%>">Update</a>
+        </p>
+    </div>
+    <% }) %>
+</div>
 
-                            <p>
-                                <a href="/delete/<%= book.title%>">Delete</a>
-                                <a href="/update/<%= book.title%>">Update</a>
-                            </p>
-
-                        </div>
-                        <% }) %>
-
-        </div>
-
-
-        <%- include('partials/footer.ejs')%>
+<%- include('partials/footer.ejs')%>
